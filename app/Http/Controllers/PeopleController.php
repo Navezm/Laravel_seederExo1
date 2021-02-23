@@ -57,9 +57,10 @@ class PeopleController extends Controller
      * @param  \App\Models\People  $people
      * @return \Illuminate\Http\Response
      */
-    public function edit(People $people)
+    public function edit($id)
     {
-        //
+        $show = People::find($id);
+        return view('pages.edit', compact('show'));
     }
 
     /**
@@ -69,9 +70,15 @@ class PeopleController extends Controller
      * @param  \App\Models\People  $people
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, People $people)
+    public function update($id, Request $request)
     {
-        //
+        $updateEntry = People::find($id);
+        $updateEntry->name = $request->name;
+        $updateEntry->age = $request->age;
+        $updateEntry->email = $request->email;
+        $updateEntry->phone = $request->phone;
+        $updateEntry->save();
+        return redirect('/');
     }
 
     /**
@@ -80,8 +87,16 @@ class PeopleController extends Controller
      * @param  \App\Models\People  $people
      * @return \Illuminate\Http\Response
      */
-    public function destroy(People $people)
+    public function destroy($id)
     {
-        //
+        $destroy = People::find($id);
+        $destroy->delete();
+        return redirect('/');
+    }
+
+    public function destroyAll()
+    {
+        People::truncate();
+        return redirect('/');
     }
 }

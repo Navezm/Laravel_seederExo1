@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PeopleController::class,'index']);
 Route::get('/showPeople/{id}', [PeopleController::class,'show']);
+Route::get('/editPeople/{id}', [PeopleController::class,'edit']);
+Route::post('/updatePeople/{id}', [PeopleController::class,'update']);
+Route::post('/deletePeople/{id}', [PeopleController::class,'destroy']);
+Route::post('/deleteAll', [PeopleController::class,'destroyAll']);
